@@ -1,5 +1,4 @@
 #Lecture1
-
 #Vektori
 x1 <- c(1:10)^2
 x1
