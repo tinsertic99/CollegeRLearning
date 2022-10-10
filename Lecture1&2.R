@@ -1,3 +1,5 @@
+#Lecture1
+
 #Vektori
 x1 <- c(1:10)^2
 x1
@@ -25,7 +27,7 @@ x1
 x1[x1>=49]
 which(x2 %% 2 == 0)
 
-#Raèunske operacije s vektorima
+#RaÄunske operacije s vektorima
 x4 <- c(1,5,8)
 sum(x4)
 prod(x4)
@@ -59,13 +61,15 @@ w
 #Alternativno w$bajka <- c("Ivica", "Marica")
 w$voce = NULL
 w
-#Što se dogodilo?
+#Å to se dogodilo?
 sudionici = factor(c("Slovenija", "Austrija", "Austrija", "Slovenija", "Slovenija", "Hrvatska"))
 sudionici
-levels(sudionici) <- c(levels(sudionici), "Mağarska")
+levels(sudionici) <- c(levels(sudionici), "MaÄ‘arska")
 sudionici
-sudionici[length(sudionici)+1] = "Mağarska"
+sudionici[length(sudionici)+1] = "MaÄ‘arska"
 sudionici
 levels(sudionici)
-levels(sudionici)<-c("Beè", "Zagreb", "Ljubljana", "Budimpešta")
+levels(sudionici)<-c("BeÄ", "Zagreb", "Ljubljana", "BudimpeÅ¡ta")
 sudionici
+
+#Lecture2
