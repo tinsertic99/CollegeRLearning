@@ -26,7 +26,7 @@ x1
 x1[x1>=49]
 which(x2 %% 2 == 0)
 
-#Računske operacije s vektorima
+#RaÄŤunske operacije s vektorima
 x4 <- c(1,5,8)
 sum(x4)
 prod(x4)
@@ -60,15 +60,105 @@ w
 #Alternativno w$bajka <- c("Ivica", "Marica")
 w$voce = NULL
 w
-#Što se dogodilo?
+#Ĺ to se dogodilo?
 sudionici = factor(c("Slovenija", "Austrija", "Austrija", "Slovenija", "Slovenija", "Hrvatska"))
 sudionici
-levels(sudionici) <- c(levels(sudionici), "Mađarska")
+levels(sudionici) <- c(levels(sudionici), "MaÄ‘arska")
 sudionici
-sudionici[length(sudionici)+1] = "Mađarska"
+sudionici[length(sudionici)+1] = "MaÄ‘arska"
 sudionici
 levels(sudionici)
-levels(sudionici)<-c("Beč", "Zagreb", "Ljubljana", "Budimpešta")
+levels(sudionici)<-c("BeÄŤ", "Zagreb", "Ljubljana", "BudimpeĹˇta")
 sudionici
 
 #Lecture2
+#Intro
+M <- matrix(data = c(1,2,3,4,5,6,7,8,9), nrow = 3, byrow = TRUE)
+M
+cbind(M, c(0,0,0))
+rbind(M, c(0,0,0))
+#Matrices
+a <- c(1,2,3,4,5)
+b <- c(1,2,3,4,5)
+m <- a%*%t(b)
+m
+x
+t(x)%*%m
+r <- rep(-0.1, 5)
+r
+t <- c(1:5)
+t
+mm <- t%*%t(r)
+mm
+#Po defaultu su svi stupac
+t(mm)
+mn = m + mm
+mn
+t(x)%*%mn
+x
+mn%*%t(x)
+mn%*%m
+m%*%mn
+install.packages("expm")
+library(expm)
+m
+m%^%3
+a <- c(1:3)
+jedin <- rep(1,3)
+jedin
+prvi_clan_kvad = (a*a)%*%t(jedin)  
+prvi_clan_kvad
+drugi_clan_kvad = jedin%*%t(a*a)
+drugi_clan_kvad
+mjesoviti = 2*a%*%t(a)
+mjesoviti
+m <- prvi_clan_kvad + mjesoviti + drugi_clan_kvad
+m
+det(m)
+i <- diag(1,3)
+i
+#Ax = i
+mi <- solve(m,i)
+mi
+m%*%mi
+mi
+mf <- as.vector(mi)
+#Proba
+a = matrix(c(1,2,3,4), nrow = 2, byrow = TRUE)
+a
+as.vector(a)
+#As vector ide po stupcima
+mf <- t(mf)
+mf
+matrix(mf, nrow =3, byrow= FALSE)
+
+#Data frameovi
+studenti <- read.table("studenti.txt", header = TRUE, sep = " ", stringsAsFactors = FALSE)
+studenti
+colnames(studenti)[3] <- "Diplomski_studij"
+colnames(studenti)
+studenti
+studenti <- rbind(studenti, c("Tin", "Sertic", "FM", 1191243844, 100))
+studenti
+studenti$Postotak = as.numeric(studenti$Postotak)
+položio = c(studenti$Postotak > 60)
+položio
+položio <- replace(položio, which(položio == TRUE),"DA" )
+položio <- replace(položio, which(položio == FALSE), "NE")
+položio
+studenti$Položio = položio
+studenti
+studenti$Postotak = NULL
+studenti
+#varijanta studenti <- subset(studenti, Ime != "Ivan" & Prezime != "Horvat")
+studenti <- studenti[!(studenti$Ime == "Ivan" & studenti$Prezime == "Horvat"),]
+
+#Funkcije
+f <- function(x){
+  y = 1/sqrt(2*pi) * exp(-x^2/2)
+  return(y)
+}
+f(0)
+dnorm(0,0,1)
+curve(f, from = -4, to = 4)
+curve(dnorm(x,0,1), from = -4, to = 4)
