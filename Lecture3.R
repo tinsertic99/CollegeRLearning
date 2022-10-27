@@ -15,7 +15,7 @@ hist(c, probability = TRUE)
 dpois(x=3, lambda =1.2)
 rgamma(n = 100, shape = 2, rate = 3)
 phyper(q = 4, m=10, n=8, k=6)
-#Ovo gore su parametri, i dobivamo vjerojatnost (funkcija distribucije) da izvucemo manje ili jednako Ëetiri bijele kuglice
+#Ovo gore su parametri, i dobivamo vjerojatnost (funkcija distribucije) da izvucemo manje ili jednako ƒçetiri bijele kuglice
 ?phyper()
 qbeta(p=1/2, shape1 = 2, shape2=2)
 ?qbeta
@@ -32,12 +32,12 @@ model
 #density - visina
 curve(dnorm(x), add=TRUE)
 hist(y)
-#Vaûno razlikovati za kolokvije
+#Va≈æno razlikovati za kolokvije
 #U barplot idu frekvencije, a u histogram uzorak
 
 #Zadaci
-#UËitavanje podataka
-#UËitamo sa import datasetom portiri.dat
+#Uƒçitavanje podataka
+#Uƒçitamo sa import datasetom portiri.dat
 nrow(podaci)
 ncol(podaci)
 x <- podaci$V1
@@ -57,8 +57,8 @@ poredak <- order(frekvencije, decreasing = TRUE)
 poredak
 sortirano <- podaci[poredak,]
 podaci
-#GrafiËki prikaz podataka
-#PreskaËemo prva dva
+#Grafiƒçki prikaz podataka
+#Preskaƒçemo prva dva
 ?plot()
 plot(x,frekvencije, xlab = "Broj usnulih portira", ylab = "frekvencije", main = "SP1")
 lines(x,frekvencije)
@@ -69,12 +69,12 @@ barplot(frekvencije, names.arg = 1:nrow(podaci))
 barplot(frekvencije, names.arg = 1:length())
 #po vrijednostima
 barplot(frekvencije, names.arg = x)
-#barplot - stupËasti dijagram
+#barplot - stupƒçasti dijagram
 #Zadatak 2.6
 barplot(frekvencije/1000, names.arg = x)
 poredak1 = order(frekvencije/1000, decreasing = 
                    TRUE)
-#poredak1 daje indexe poslagane po veliËini
+#poredak1 daje indexe poslagane po veliƒçini
 #Proba napravljenog:
 barplot(frekvencije[poredak1]/1000,names.arg = x[poredak1])
 #Moramo popravit
@@ -93,10 +93,23 @@ hist(pnorm(normalne))
 #3.7
 pbinom(2, size=10, prob=1/6)
 ?Hypergeometric()
-#Hipergeomtrijska - biramo bijele loptice iz crno/bijele kutije i ne vraÊamo loptice nazad
+#Hipergeomtrijska - biramo bijele loptice iz crno/bijele kutije i ne vraƒáamo loptice nazad
 #Cure su bijele loptice
 #zanima nas d, jer je to vjerojatnost (u diskretnom slucaju) da je x jednak nekoj vrijednosti
 dhyper(x = 2, m = 9, n = 11, k = 5)
 
 #Funckije u R-u
-#Za domaÊu zadaÊu
+#Za domaƒáu zadaƒáu
+#Zadatak 4.1
+generator <- function(lambda, n){
+  my_sample <- pexp(runif(n),lambda)
+  return(list(my_sample, 1/mean(my_sample)))
+}
+#Testiramo ≈°to smo dobili
+my_sample <- generator(4,10000)
+#Prikaz uzorka iz liste
+hist(unlist(my_sample[1]), main = "Histogram generiranog uzorka", xlab = "X vrijednosti")
+#Vrijednost drugog povratnog argumenta
+recip_prosjeka <- unlist(my_sample[2])
+recip_prosjeka
+#Reciprocna vrijednost prosjeka uzorka iznosi otprilike lambda/(lambda-1)
