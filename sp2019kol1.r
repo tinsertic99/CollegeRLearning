@@ -78,6 +78,14 @@ pdf(file = "graf2c.pdf")
 #(n povrh 0) * p na 0 puta 1-p (10-0)
 curve(x^104*(1-x)^396)
 dev.off()
+#Ide pravo crtanje
+pdf(file = "graf2c.pdf")
+MLE <- function (p){
+  probs <- dbinom(0:10, size=10, prob = p)
+  return(prod(probs^moje_frekvencije))
+}
+curve(lapply(x,MLE), from = 0, to = 0.4)
+dev.off()
 curve(104*log(x) + 396*log(1-x))
 funkcija <- function(x){
   return(104/x + (-396)/(1-x))
