@@ -60,7 +60,10 @@ mojatablica2 <- read.table(file = "statpr-1920-kol1-zad2.txt", header = FALSE, s
 mojatablica2 <- as.numeric(mojatablica2)
 n <- length(mojatablica2)
 moja_funkcija <- function(){
-  return(c(hist(mojatablica2)$counts,replicate(5,0)))
+  povratnik <- c()
+  for(i in 0:10)
+    povratnik[i+1] <- length(which(mojatablica2==i))
+  return(povratnik)
 }
 moje_frekvencije <- moja_funkcija()
 sum(moje_frekvencije) == n
@@ -71,13 +74,13 @@ sum(moje_frekvencije) == n
 #Bolje je odabrati binomnu (slucajno biram koji ljudi i koliko njih ce imati koju boju ociju)
 suma_xeva = sum(moje_frekvencije*(0:10))
 suma_xeva
-hist(mojatablica2, probability = TRUE)
 pdf(file = "graf2c.pdf")
-curve(x^59*(1-x)^441)
+#(n povrh 0) * p na 0 puta 1-p (10-0)
+curve(x^104*(1-x)^396)
 dev.off()
-curve(59*log(x) + 441*log(1-x))
+curve(104*log(x) + 396*log(1-x))
 funkcija <- function(x){
-  return(59/x + (-441)/(1-x))
+  return(104/x + (-396)/(1-x))
 }
 curve(funkcija)
 uniroot(f = funkcija, interval = c(0.0001,0.9999))
@@ -97,6 +100,7 @@ birkokororom <- function(x){
 optiko <- function(x){
   return(sum(((moje_frekvencije-birkokororom(x))^2)/birkokororom(x)))
 }
+moje_frekvencije
 optimise(f=optiko, lower = 0.001, upper = 0.999)
 H <- optimise(f=optiko, lower = 0.001, upper = 0.999)$objective
 H
