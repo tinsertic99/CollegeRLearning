@@ -46,16 +46,16 @@ min3 <- min(aparat3[,1])
 max1 <- max(aparat1[,1])
 max2 <- max(aparat2[,1])
 max3 <- max(aparat3[,1])
-#Promatrajuæi raspon uzorka te veliku razliku u aritmetièkoj sredini izmeğu
-#prvog i treæeg uzorka, zakljuèujemo da podaci ne sugeriraju da dolaze iz iste 
+#PromatrajuÄ‡i raspon uzorka te veliku razliku u aritmetiÄkoj sredini izmeÄ‘u
+#prvog i treÄ‡eg uzorka, zakljuÄujemo da podaci ne sugeriraju da dolaze iz iste 
 #distribucije
-#Isto tako, moemo zakljuèiti da se na prvom aparatu prodaje dominantno manje kava,
-#dok na treæem aparatu ima mjerenja (i vremena) gdje se prodaje znatno vise kava
+#Isto tako, moÅ¾emo zakljuÄiti da se na prvom aparatu prodaje dominantno manje kava,
+#dok na treÄ‡em aparatu ima mjerenja (i vremena) gdje se prodaje znatno vise kava
 #Provodimo Pearsonov hi kvadrat test
 #MLE za Poissonov daje da lambdu je lambda jednaka aritmetickoj sredini
 lambda <- mean(aparat3[,1])
 #Sprovodimo test
-#Opaene frekvencije
+#OpaÅ¾ene frekvencije
 opazene_frekv <- aps3
 teoretske_frekv <- c(replicate(length(aps3),0))
 for(i in 1:length(teoretske_frekv))
@@ -71,7 +71,7 @@ H = sum((opazene_frekv-teoretske_frekv_aps)^2/(teoretske_frekv_aps))
 p_vrijednost = pchisq(q = H, df = 10, lower.tail = FALSE)
 p_vrijednost
 #Kako p_vrijednost nije manja ni od jedne razine znacajnost(0.01,0.05,0.10)
-#ne odbacujemo nultu hipotezu da naš uzorak dolazi iz poissonove distribucije
+#ne odbacujemo nultu hipotezu da naÅ¡ uzorak dolazi iz poissonove distribucije
 #s parametrom lambda
 lambda2 <- u2
 lambda2
