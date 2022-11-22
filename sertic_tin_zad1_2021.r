@@ -67,8 +67,14 @@ sum(teoretske_frekv)
 teoretske_frekv_aps <- 52 * teoretske_frekv
 sum(teoretske_frekv_aps)
 sum(opazene_frekv)
+a <- teoretske_frekv_aps
+teoretske_frekv_aps <- c(a[1] + a[2] + a[3],a[4:7], a[8] + a[9] + a[10] + a[11])
+teoretske_frekv_aps
+b <- opazene_frekv
+opazene_frekv <- c(b[1] + b[2] + b[3],b[4:7], b[8] + b[9] + b[10] + b[11])
+opazene_frekv
 H = sum((opazene_frekv-teoretske_frekv_aps)^2/(teoretske_frekv_aps))
-p_vrijednost = pchisq(q = H, df = 10, lower.tail = FALSE)
+p_vrijednost = pchisq(q = H, df = 5, lower.tail = FALSE)
 p_vrijednost
 #Kako p_vrijednost nije manja ni od jedne razine znacajnost(0.01,0.05,0.10)
 #ne odbacujemo nultu hipotezu da naš uzorak dolazi iz poissonove distribucije
@@ -80,3 +86,32 @@ alfa = 0.01
 laU = (2*n*lambda2 + qnorm(p = alfa/2)^2 + sqrt(4*n*lambda2*qnorm(p=alfa/2)^2+qnorm(p=alfa/2)^4))/(2*n)
 laL = (2*n*lambda2 + qnorm(p = alfa/2)^2 - sqrt(4*n*lambda2*qnorm(p=alfa/2)^2+qnorm(p=alfa/2)^4))/(2*n)
 #Pouzdani interval je [2.603242, 3.84466433]
+#E Sad ide pravi nacin kao sa vjezbi
+t <- sum(aparat2[,1])
+n <- length(aparat2[,1])
+n
+F <- function(l){
+  ppois(t, lambda = n*l)
+}
+
+G <- function(l){
+  1 - ppois(t - 1, lambda = n*l)
+}
+curve(F, from = 0, to = 10)
+curve(G, from = 0, to = 10, add = T)
+#Ocito je da su injekcije. 
+
+Fpom <- function(l){
+  F(l) - alpha/2
+}
+
+Gpom <- function(l){
+  G(l) - alpha/2
+}
+curve(Fpom, from = 0, to = 10)
+curve(Gpom, from = 0, to = 10, add = T)
+gornja1 <- uniroot(f = Fpom, interval = c(3,4))$root
+donja1 <- uniroot(f = Gpom, interval = c(2,3))$root
+donja1
+gornja1
+#[2.580015,3.835457]
