@@ -47,7 +47,7 @@ ocek_frekv_novo
 #2.4
 H =  sum((frekv_novo-ocek_frekv_novo)^2/ocek_frekv_novo)
 H
-df = 3 - 1 - 1
+df = 3 - 1 
 df
 #df je broj razreda-1
 1 - pchisq(q = H, df = df)
