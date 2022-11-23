@@ -101,7 +101,7 @@ p_vrijednost <- pnorm(q = Z, lower.tail = FALSE)
 jakost_testa <- function(ni){
   1 - pnorm(lijevi_rub - (ni-7000)/std2*sqrt(n))
 }
-curve(jakost_testa, from = 7000, to=max(y))
+curve(jakost_testa, from = 7000, to=max(place))
 #Test je najslabiji za mi = 7000
 #Što je stvarni mi veći, test je jači, te s većom vjerojatnosti odbacuje H0, ako je H1 istina.
 
