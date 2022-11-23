@@ -10,11 +10,11 @@ prvi_stupac <- mojatabela2[,1]
 prvi_stupac[which(prvi_stupac[]=="M")] = 0
 prvi_stupac[which(prvi_stupac[] == "Z")] = 1
 prvi_stupac <- as.numeric(prvi_stupac)
-sn <- var(prvi_stupac)
+sn <- sqrt(var(prvi_stupac))
 mean(prvi_stupac)
 alfa <- 0.05
-donja_granica <- postotak_zena + qt(p=alfa/2, df=ukupno_ljudi-1)*sn/(sqrt(ukupno_ljudi))
-gornja_granica <- postotak_zena - qt(p=alfa/2, df=ukupno_ljudi-1)*sn/(sqrt(ukupno_ljudi))
+donja_granica <- postotak_zena + qnorm(p=alfa/2)*sn/(sqrt(ukupno_ljudi))
+gornja_granica <- postotak_zena - qnorm(p=alfa/2)*sn/(sqrt(ukupno_ljudi))
 #Laura rješenje
 #Distribucija je B(45,p).
 t <- 21
