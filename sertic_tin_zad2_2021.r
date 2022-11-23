@@ -15,9 +15,44 @@ mean(prvi_stupac)
 alfa <- 0.05
 donja_granica <- postotak_zena + qt(p=alfa/2, df=ukupno_ljudi-1)*sn/(sqrt(ukupno_ljudi))
 gornja_granica <- postotak_zena - qt(p=alfa/2, df=ukupno_ljudi-1)*sn/(sqrt(ukupno_ljudi))
-#Na temelju toga ne možemo zakljuèiti da u poduzeæu rade veæinom muškarci
+#Laura rjeÅ¡enje
+#Distribucija je B(45,p).
+t <- 21
+n <- length(mojatabela2[,1])
+p <- postotak_zena
+
+F1 <- function(p){
+  pbinom(t, size = 45, prob = p)
+}
+
+G1 <- function(p){
+  1 - pbinom(t - 1, size = 45, prob = p)
+}
+
+curve(F1, from = 0, to = 1)
+curve(G1, from = 0, to = 1, add = T)
+
+#Ocito je da su injekcije. 
+
+Fpom1 <- function(p){
+  F1(p) - alfa/2
+}
+
+Gpom1 <- function(p){
+  G1(p) - alfa/2
+}
+
+curve(Fpom1, from = 0, to = 1)
+curve(Gpom1, from = 0, to = 1, add = T)
+abline(a = 0, b = 0)
+
+gornja2 <- uniroot(f = Fpom1, interval = c(0.6,0.8))$root
+donja2 <- uniroot(f = Gpom1, interval = c(0.2,0.4))$root
+donja2
+gornja2
+#Na temelju toga ne moÅ¾emo zakljuÄiti da u poduzeÄ‡u rade veÄ‡inom muÅ¡karci
 hist(mojatabela2[,2], main = "histogram2c")
-#Promatrajuæi dobiveni histogram, ne mogu baš biti siguran da podaci dolaze iz normalne distribucije,
+#PromatrajuÄ‡i dobiveni histogram, ne mogu baÅ¡ biti siguran da podaci dolaze iz normalne distribucije,
 #no ne mogu to ni odbaciti
 place <- mojatabela2[,2]
 place_poredane <- sort(place)
@@ -36,9 +71,16 @@ for(i in 1:n)
 }
 #Realizacija testne statistike
 moj_max
-#Promatrajuæi tablicu KS testa za n=45 vidimo da je p_vrijednost negdje oko 0.17,
-#pa ne odbacujemo nultu hipotezu da su podaci normalno distribuirani 
-#ni za jednu razinu znacajnosti (0.01,0.05,0.10)
+#Gledam tablicu lilliefors test table
+1.031/sqrt(45)
+0.886/sqrt(45)
+#p_vrijednost je ispod 0.01
+#PromatrajuÄ‡i tablicu KS testa za n=45 vidimo da je p_vrijednost manja od 0.01,
+#pa odbacujemo nultu hipotezu da su podaci normalno distribuirani 
+#za svaku razinu znacajnosti (0.01,0.05,0.10)
+#Mogli smo jednostavno i ovako
+library(nortest)
+lillie.test(y)
 hist(mojatabela2[,2], main = "histogram2c", probability = TRUE)
 curve(dnorm(x,mean = u1, sd = std1), add = TRUE)
 #Crtam ovo samo radi sebe
@@ -57,6 +99,9 @@ p_vrijednost <- pnorm(q = Z, lower.tail = FALSE)
 #Kako je p_vrijednost manja od razine znacajnosti alfa,
 #odbacujemo nultu hipotezu u korist alternativne na razini znacajnosti alfa
 jakost_testa <- function(ni){
-  pnorm(q = lijevi_rub, mean = ni, sd = std2)
+  1 - pnorm(lijevi_rub - (ni-7000)/std2*sqrt(n))
 }
-curve(jakost_testa, from = -10000, to=10000)
+curve(jakost_testa, from = 7000, to=max(y))
+#Test je najslabiji za mi = 7000
+#Å to je stvarni mi veÄ‡i, test je jaÄi, te s veÄ‡om vjerojatnosti odbacuje H0, ako je H1 istina.
+
