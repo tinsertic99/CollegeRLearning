@@ -80,7 +80,7 @@ moj_max
 #za svaku razinu znacajnosti (0.01,0.05,0.10)
 #Mogli smo jednostavno i ovako
 library(nortest)
-lillie.test(y)
+lillie.test(place)
 hist(mojatabela2[,2], main = "histogram2c", probability = TRUE)
 curve(dnorm(x,mean = u1, sd = std1), add = TRUE)
 #Crtam ovo samo radi sebe
